@@ -27,7 +27,7 @@ export default function usePose(): [Orientation | null, Position | null] {
       conn()
     }
 
-    return () => ws?.close()
+    // return () => ws?.close()
   }, [conn, ws])
 
   return [ori, pos]
