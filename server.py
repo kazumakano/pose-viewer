@@ -17,8 +17,8 @@ class UdpProto(asyncio.DatagramProtocol):
     def datagram_received(self, data_bytes: bytes, _: tuple[str | Any, int]) -> None:
         data_strs = data_bytes.decode().split(",")[1:]
         asyncio.create_task(self.wsp.send(json.dumps({
-            "ori": [float(d) for d in data_strs[:3]],
-            "pos": [float(d) for d in data_strs[3:]]
+            "ori": [float(d) for d in data_strs[3:]],
+            "pos": [float(d) for d in data_strs[:3]]
         }).encode()))
 
 async def on_viewer_conn(server_host: str, server_port: int, wsp: wss.WebSocketServerProtocol) -> None:
