@@ -3,6 +3,10 @@ import { useEffect, useState } from "react"
 
 export type Orientation = [number, number, number, number]
 export type Position = [number, number, number]
+type PoseData = {
+  ori: Orientation
+  pos: Position
+}
 
 export default function usePose(): [Orientation | null, Position | null] {
   const [ori, setOri] = useState<Orientation | null>(null)
@@ -13,9 +17,9 @@ export default function usePose(): [Orientation | null, Position | null] {
     const newWs = new WebSocket(`ws://${process.env.NEXT_PUBLIC_SERVER_HOST}:${process.env.NEXT_PUBLIC_SERVER_PORT}`)
     newWs.onclose = () => console.log("connection has been closed")
     newWs.onmessage = async (event: MessageEvent<Blob>) => {
-      const data = JSON.parse(await event.data.text())
-      setOri(data.ori)
-      setPos(data.pos)
+      const data: PoseData = JSON.parse(await event.data.text())
+      setOri([data.ori[0], data.ori[1], -data.ori[2], -data.ori[3]])
+      setPos([100 * data.pos[0], 100 * data.pos[1], -100 * data.pos[2]])
     }
     newWs.onopen = () => console.log(`connect to ${process.env.NEXT_PUBLIC_SERVER_HOST}:${process.env.NEXT_PUBLIC_SERVER_PORT}`)
 
