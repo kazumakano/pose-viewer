@@ -1,4 +1,5 @@
 import usePose from "../hooks/pose"
+import { Box } from "@react-three/drei"
 
 const ALTITUDE_OFFSET = 16
 const SIZE: [number, number, number] = [8, 16, 1]    // (width, height, thickness)
@@ -8,14 +9,14 @@ export default function Phone(): JSX.Element {
 
   if (ori && pos) {
     return (
-      <mesh
+      <Box
+        args={SIZE}
         castShadow
         position={[pos[0], pos[1] + ALTITUDE_OFFSET, pos[2]]}
         quaternion={ori}
       >
-        <boxGeometry args={SIZE} />
         <meshStandardMaterial />
-      </mesh>
+      </Box>
     )
   } else {
     return <></>
