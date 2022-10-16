@@ -4,7 +4,7 @@ import { Canvas } from "@react-three/fiber"
 import { OrbitControls, Plane } from "@react-three/drei"
 import { DoubleSide } from "three"
 
-const INIT_CAM_POS: [number, number, number] = [64, 128, 64]
+const INIT_CAM_POS: [number, number, number] = [64, 128, 32]
 const LIGHT_ALTITUDE = 256
 
 type SceneProps = {
