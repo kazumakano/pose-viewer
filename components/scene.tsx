@@ -26,7 +26,7 @@ export default function Scene({ children, size }: SceneProps): JSX.Element {
         <ambientLight intensity={0.5} />
         <directionalLight
           castShadow
-          intensity={0.5}
+          intensity={1}
           position={[0, LIGHT_ALTITUDE, 0]}
         />
         <OrbitControls />
