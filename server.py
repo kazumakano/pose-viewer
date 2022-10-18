@@ -11,8 +11,9 @@ class UdpProto(asyncio.DatagramProtocol):
     def connection_lost(self, _: Exception | None) -> None:
         print("connection to logger has been closed")
 
-    def connection_made(self, _: asyncio.DatagramTransport) -> None:
-        print("connect to logger")
+    def connection_made(self, transport: asyncio.DatagramTransport) -> None:
+        sock_name = transport.get_extra_info("sockname")
+        print(f"waiting logger at {sock_name[0]}:{sock_name[1]}")
 
     def datagram_received(self, data_bytes: bytes, _: tuple[str | Any, int]) -> None:
         data_strs = data_bytes.decode().split(",")[1:]
