@@ -1,7 +1,6 @@
 import asyncio
-from websockets import server as wss
-from typing import Any
 import json
+from websockets import server as wss
 
 
 class UdpProto(asyncio.DatagramProtocol):
@@ -15,7 +14,7 @@ class UdpProto(asyncio.DatagramProtocol):
         sock_name = transport.get_extra_info("sockname")
         print(f"waiting logger at {sock_name[0]}:{sock_name[1]}")
 
-    def datagram_received(self, data_bytes: bytes, _: tuple[str | Any, int]) -> None:
+    def datagram_received(self, data_bytes: bytes, _: tuple[str, int]) -> None:
         data_strs = data_bytes.decode().split(",")[1:]
         asyncio.create_task(self.wsp.send(json.dumps({
             "ori": [float(d) for d in data_strs[3:]],
