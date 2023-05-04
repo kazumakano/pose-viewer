@@ -19,7 +19,7 @@ export default function Scene({ children, size }: SceneProps): JSX.Element {
         camera={{
           far: 4 * size,
           fov: 32,
-          position: [INIT_CAM_POS[0], INIT_CAM_POS[1], INIT_CAM_POS[2]]
+          position: INIT_CAM_POS
         }}
         shadows
       >
