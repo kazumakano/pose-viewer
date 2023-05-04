@@ -4,7 +4,7 @@ import { Canvas } from "@react-three/fiber"
 import { OrbitControls, Plane } from "@react-three/drei"
 import { DoubleSide } from "three"
 
-const INIT_CAM_POS: [number, number, number] = [64, 128, 32]
+const INIT_CAM_POS: [number, number, number] = [64, 32, 128]
 const LIGHT_ALTITUDE = 256
 
 type SceneProps = {
@@ -19,7 +19,7 @@ export default function Scene({ children, size }: SceneProps): JSX.Element {
         camera={{
           far: 4 * size,
           fov: 32,
-          position: [INIT_CAM_POS[0], INIT_CAM_POS[2], INIT_CAM_POS[1]]
+          position: [INIT_CAM_POS[0], INIT_CAM_POS[1], INIT_CAM_POS[2]]
         }}
         shadows
       >
