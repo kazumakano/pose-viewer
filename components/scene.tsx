@@ -33,7 +33,7 @@ export default function Scene({ children, size }: SceneProps): JSX.Element {
         <Plane
           args={[size, size]}
           receiveShadow
-          rotation={[-Math.PI / 2, 0, 0]}
+          rotation={[Math.PI / 2, 0, 0]}
         >
           <meshStandardMaterial
             opacity={0.5}
