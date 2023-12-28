@@ -22,7 +22,6 @@ class UdpProto(asyncio.DatagramProtocol):
         }).encode()))
 
 async def _on_viewer_conn(udp_host: str, udp_port: int, wsp: ws.WebSocketServerProtocol) -> None:
-    print("connected to viewer")
     await asyncio.get_running_loop().create_datagram_endpoint(lambda: UdpProto(wsp), local_addr=(udp_host, udp_port))
     await asyncio.Future()
 
