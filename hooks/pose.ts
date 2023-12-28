@@ -14,14 +14,14 @@ export default function usePose(): [Orientation | null, Position | null] {
   const [ws, setWs] = useState<WebSocket | null>(null)
 
   const conn = useCallback(() => {
-    const newWs = new WebSocket(`ws://${process.env.NEXT_PUBLIC_SERVER_HOST}:${process.env.NEXT_PUBLIC_SERVER_PORT}`)
+    const newWs = new WebSocket(`ws://${process.env.NEXT_PUBLIC_SRV_HOST}:${process.env.NEXT_PUBLIC_SRV_PORT}`)
     newWs.onclose = () => console.log("connection has been closed")
     newWs.onmessage = async (event: MessageEvent<Blob>) => {
       const data: PoseData = JSON.parse(await event.data.text())
       setOri([data.ori[0], data.ori[1], -data.ori[2], -data.ori[3]])
       setPos([100 * data.pos[0], 100 * data.pos[1], -100 * data.pos[2]])
     }
-    newWs.onopen = () => console.log(`connect to ${process.env.NEXT_PUBLIC_SERVER_HOST}:${process.env.NEXT_PUBLIC_SERVER_PORT}`)
+    newWs.onopen = () => console.log(`connect to ${process.env.NEXT_PUBLIC_SRV_HOST}:${process.env.NEXT_PUBLIC_SRV_PORT}`)
 
     setWs(newWs)
   }, [setOri, setPos, setWs])

@@ -1,10 +1,10 @@
 import asyncio
 import json
-from websockets import server as wss
+from websockets import server as ws
 
 
 class UdpProto(asyncio.DatagramProtocol):
-    def __init__(self, wsp: wss.WebSocketServerProtocol) -> None:
+    def __init__(self, wsp: ws.WebSocketServerProtocol) -> None:
         self.wsp = wsp
 
     def connection_lost(self, _: Exception | None) -> None:
@@ -21,24 +21,24 @@ class UdpProto(asyncio.DatagramProtocol):
             "pos": [float(d) for d in data_strs[:3]]
         }).encode()))
 
-async def _on_viewer_conn(server_host: str, server_port: int, wsp: wss.WebSocketServerProtocol) -> None:
+async def _on_viewer_conn(udp_host: str, udp_port: int, wsp: ws.WebSocketServerProtocol) -> None:
     print(f"connect to viewer {wsp.host}:{wsp.port}")
 
-    await asyncio.get_running_loop().create_datagram_endpoint(lambda: UdpProto(wsp), local_addr=(server_host, server_port))
+    await asyncio.get_running_loop().create_datagram_endpoint(lambda: UdpProto(wsp), local_addr=(udp_host, udp_port))
     await asyncio.Future()
 
-async def serve(server_host: str, server_port: int, viewer_host: str, viewer_port: int) -> None:
-    async with wss.serve(lambda wsp: _on_viewer_conn(server_host, server_port, wsp), host=viewer_host, port=viewer_port):
+async def serve(udp_host: str, udp_port: int, ws_host: str, ws_port: int) -> None:
+    async with ws.serve(lambda wsp: _on_viewer_conn(udp_host, udp_port, wsp), host=ws_host, port=ws_port):
         await asyncio.Future()
 
 if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("-sh", "--server_host", default="0.0.0.0", help="specify server host", metavar="SERVER_HOST")
-    parser.add_argument("-sp", "--server_port", default=49152, type=int, help="specify server port", metavar="SERVER_PORT")
-    parser.add_argument("-vh", "--viewer_host", default="127.0.0.1", help="specify viewer host", metavar="VIEWER_HOST")
-    parser.add_argument("-vp", "--viewer_port", default=80, type=int, help="specify viewer port", metavar="VIEWER_PORT")
+    parser.add_argument("-uh", "--udp_host", default="0.0.0.0", help="specify UDP server host", metavar="UDP_HOST")
+    parser.add_argument("-up", "--udp_port", default=49152, type=int, help="specify UDP server port", metavar="UDP_PORT")
+    parser.add_argument("-wh", "--ws_host", default="127.0.0.1", help="specify websocket server host", metavar="WS_HOST")
+    parser.add_argument("-wp", "--ws_port", default=8765, type=int, help="specify websocket server port", metavar="WS_PORT")
     args = parser.parse_args()
 
-    asyncio.run(serve(args.server_host, args.server_port, args.viewer_host, args.viewer_port))
+    asyncio.run(serve(args.udp_host, args.udp_port, args.ws_host, args.ws_port))
