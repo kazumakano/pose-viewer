@@ -22,12 +22,12 @@ class UdpProto(asyncio.DatagramProtocol):
         }).encode()))
 
 async def _on_viewer_conn(udp_host: str, udp_port: int, wsp: ws.WebSocketServerProtocol) -> None:
-    print(f"connect to viewer {wsp.host}:{wsp.port}")
-
+    print("connected to viewer")
     await asyncio.get_running_loop().create_datagram_endpoint(lambda: UdpProto(wsp), local_addr=(udp_host, udp_port))
     await asyncio.Future()
 
 async def serve(udp_host: str, udp_port: int, ws_host: str, ws_port: int) -> None:
+    print(f"running websocket server at {ws_host}:{ws_port}")
     async with ws.serve(lambda wsp: _on_viewer_conn(udp_host, udp_port, wsp), host=ws_host, port=ws_port):
         await asyncio.Future()
 
