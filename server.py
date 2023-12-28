@@ -21,14 +21,14 @@ class UdpProto(asyncio.DatagramProtocol):
             "pos": [float(d) for d in data_strs[:3]]
         }).encode()))
 
-async def on_viewer_conn(server_host: str, server_port: int, wsp: wss.WebSocketServerProtocol) -> None:
+async def _on_viewer_conn(server_host: str, server_port: int, wsp: wss.WebSocketServerProtocol) -> None:
     print(f"connect to viewer {wsp.host}:{wsp.port}")
 
     await asyncio.get_running_loop().create_datagram_endpoint(lambda: UdpProto(wsp), local_addr=(server_host, server_port))
     await asyncio.Future()
 
 async def serve(server_host: str, server_port: int, viewer_host: str, viewer_port: int) -> None:
-    async with wss.serve(lambda wsp: on_viewer_conn(server_host, server_port, wsp), host=viewer_host, port=viewer_port):
+    async with wss.serve(lambda wsp: _on_viewer_conn(server_host, server_port, wsp), host=viewer_host, port=viewer_port):
         await asyncio.Future()
 
 if __name__ == "__main__":
