@@ -21,7 +21,7 @@ export default function usePose(): [Orientation | null, Position | null] {
       setOri([data.ori[0], data.ori[1], -data.ori[2], -data.ori[3]])
       setPos([100 * data.pos[0], 100 * data.pos[1], -100 * data.pos[2]])
     }
-    newWs.onopen = () => console.log(`connect to ${process.env.NEXT_PUBLIC_SRV_HOST}:${process.env.NEXT_PUBLIC_SRV_PORT}`)
+    newWs.onopen = () => console.log(`connected to ${process.env.NEXT_PUBLIC_SRV_HOST}:${process.env.NEXT_PUBLIC_SRV_PORT}`)
 
     setWs(newWs)
   }, [setOri, setPos, setWs])
