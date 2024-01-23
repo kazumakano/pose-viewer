@@ -7,7 +7,7 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <>
       <Head>
-        <title>{process.env.NEXT_PUBLIC_TITLE}</title>
+        <title>Pose Viewer</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
