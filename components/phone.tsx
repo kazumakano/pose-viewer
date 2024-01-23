@@ -1,12 +1,15 @@
-import usePose from "../hooks/pose"
+import type { Orientation, Position } from "../hooks/pose"
 import { Box } from "@react-three/drei"
 
 const ALTITUDE_OFFSET = 16
 const SIZE: [number, number, number] = [8, 16, 1]    // (width, height, thickness)
 
-export default function Phone(): JSX.Element {
-  const [ori, pos] = usePose()
+type PhoneProps = {
+  ori: Orientation | null
+  pos: Position | null
+}
 
+export default function Phone({ ori, pos }: PhoneProps): JSX.Element {
   if (ori && pos) {
     return (
       <Box
