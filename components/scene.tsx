@@ -3,7 +3,7 @@ import { Canvas } from "@react-three/fiber"
 import { OrbitControls, Plane } from "@react-three/drei"
 import { DoubleSide } from "three"
 
-const INIT_CAM_POS: [number, number, number] = [64, 32, 128]
+const INIT_CAM_POS = [64, 32, 128]
 
 type SceneProps = {
   children: ReactNode
@@ -12,7 +12,7 @@ type SceneProps = {
 
 export default function Scene({ children, size }: SceneProps): JSX.Element {
   return (
-    <Canvas camera={{ far: 4 * size, fov: 32, position: INIT_CAM_POS }} shadows>
+    <Canvas camera={{ far: 4 * size, fov: 32, position: INIT_CAM_POS as [number, number, number] }} shadows>
       <ambientLight intensity={0.5} />
       <directionalLight
         castShadow
