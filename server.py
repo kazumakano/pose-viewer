@@ -16,7 +16,7 @@ class UdpProto(asyncio.DatagramProtocol):
 
 async def _on_conn_viewer(udp_host: str, udp_port: int, wsp: ws.WebSocketServerProtocol) -> None:
     print(f"connected to viewer {wsp.remote_address[0]}:{wsp.remote_address[1]}")
-    print(f"waiting logger at {udp_host}:{udp_port}")
+    print(f"waiting smartphones at {udp_host}:{udp_port}")
     await asyncio.get_running_loop().create_datagram_endpoint(lambda: UdpProto(wsp), local_addr=(udp_host, udp_port))
     await asyncio.Future()
 
