@@ -1,6 +1,6 @@
 # Pose Viewer
-This is web application to view smartphone pose.
-This application is based on [Three.js](https://threejs.org/) and built with [Next.js](https://nextjs.org/).
+This web application allows you to view smartphone poses in real-time.
+It visualizes the positions and orientations in 3D with [Three.js](https://threejs.org/).
 
 ## Usage
 ### server.py
