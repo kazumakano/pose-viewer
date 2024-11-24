@@ -10,18 +10,9 @@ type PhoneProps = {
 }
 
 export default function Phone({ ori, pos }: PhoneProps): JSX.Element {
-  if (ori && pos) {
-    return (
-      <Box
-        args={SIZE}
-        castShadow
-        position={[pos[0], pos[1] + ALTITUDE_OFFSET, pos[2]]}
-        quaternion={ori}
-      >
-        <meshStandardMaterial />
-      </Box>
-    )
-  } else {
-    return <></>
-  }
+  return ori && pos ? (
+    <Box args={SIZE} castShadow position={[pos[0], pos[1] + ALTITUDE_OFFSET, pos[2]]} quaternion={ori} >
+      <meshStandardMaterial />
+    </Box>
+  ) : <></>
 }
