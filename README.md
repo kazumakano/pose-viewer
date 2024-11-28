@@ -1,6 +1,6 @@
 # Pose Viewer
 This web application allows you to view smartphone poses in real-time.
-It visualizes the positions and orientations in 3D with [Three.js](https://threejs.org/).
+It visualizes the positions and orientations in 3D based on [Three.js](https://threejs.org/).
 
 ## Usage
 ### Server
