@@ -31,7 +31,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-uh", "--udp_host", default="0.0.0.0", help="specify udp host", metavar="UDP_HOST")
     parser.add_argument("-up", "--udp_port", default=49152, type=int, help="specify udp port", metavar="UDP_PORT")
-    parser.add_argument("-wh", "--ws_host", default="127.0.0.1", help="specify websocket host", metavar="WS_HOST")
+    parser.add_argument("-wh", "--ws_host", default="0.0.0.0", help="specify websocket host", metavar="WS_HOST")
     parser.add_argument("-wp", "--ws_port", default=8765, type=int, help="specify websocket port", metavar="WS_PORT")
     args = parser.parse_args()
 
