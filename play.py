@@ -1,16 +1,17 @@
 import asyncio
 from datetime import datetime
+import aiofiles
 
 
 async def play(file: str, host: str, port: int, spd: float) -> None:
     trans = (await asyncio.get_running_loop().create_datagram_endpoint(asyncio.DatagramProtocol, remote_addr=(host, port)))[0]
 
-    with open(file) as f:
-        l = f.readline()
+    async with aiofiles.open(file) as f:
+        l = await f.readline()
         trans.sendto(l.encode())
         last_ts = datetime.strptime(l.split(",")[0], "%Y-%m-%d %H:%M:%S.%f")
 
-        for l in f:
+        async for l in f:
             ts = datetime.strptime(l.split(",")[0], "%Y-%m-%d %H:%M:%S.%f")
             await asyncio.sleep((ts - last_ts).total_seconds() / spd)
             trans.sendto(l.encode())
