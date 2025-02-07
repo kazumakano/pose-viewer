@@ -18,7 +18,7 @@ async def _on_conn_viewer(udp_host: str, udp_port: int, wsp: ws.WebSocketServerP
     print(f"connected to viewer {wsp.remote_address[0]}:{wsp.remote_address[1]}")
     print(f"waiting smartphones at {udp_host}:{udp_port}")
     await asyncio.get_running_loop().create_datagram_endpoint(lambda: UdpProto(wsp), local_addr=(udp_host, udp_port))
-    await asyncio.Future()
+    await wsp.wait_closed()
 
 async def serve(udp_host: str, udp_port: int, ws_host: str, ws_port: int) -> None:
     print(f"running websocket server at {ws_host}:{ws_port}")
